@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://b48pudkrmh6xu"]
+
+[ext_resource type="PackedScene" uid="uid://rb8umd20fs5n" path="res://scenes/bar.tscn" id="1_71850"]
+[ext_resource type="PackedScene" uid="uid://djs7dyphqh4br" path="res://scenes/ui.tscn" id="2_0c5ve"]
+
+[node name="game" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="bar" parent="." instance=ExtResource("1_71850")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 0
+grow_vertical = 1
+size_flags_horizontal = 8
+
+[node name="UI" parent="." instance=ExtResource("2_0c5ve")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+metadata/_edit_use_anchors_ = true
+
+[connection signal="start" from="UI" to="bar" method="_on_ui_start"]
