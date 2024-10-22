@@ -1,9 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://b48pudkrmh6xu"]
+[gd_scene load_steps=11 format=3 uid="uid://b48pudkrmh6xu"]
 
 [ext_resource type="PackedScene" uid="uid://rb8umd20fs5n" path="res://scenes/bar.tscn" id="1_71850"]
+[ext_resource type="Script" path="res://scenes/SIGMAOMEGASCRIPT.gd" id="1_lg64t"]
 [ext_resource type="PackedScene" uid="uid://djs7dyphqh4br" path="res://scenes/ui.tscn" id="2_0c5ve"]
+[ext_resource type="Texture2D" uid="uid://br27e42eddwg1" path="res://sprites/bigrock.png" id="2_rlstg"]
+[ext_resource type="Texture2D" uid="uid://wpvgh5q3o2dx" path="res://sprites/ramplaceholder.png" id="4_ffiev"]
+[ext_resource type="Texture2D" uid="uid://ciu2kgwffal7b" path="res://sprites/heart.png" id="6_0q6hn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gtu2c"]
+font_size = 96
+
+[sub_resource type="Animation" id="Animation_frytx"]
+resource_name = "charge"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 123), Vector2(1, 61), Vector2(1, 123)]
+}
+
+[sub_resource type="Animation" id="Animation_rl7al"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 123)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1n2bg"]
+_data = {
+"RESET": SubResource("Animation_rl7al"),
+"charge": SubResource("Animation_frytx")
+}
 
 [node name="game" type="Node2D"]
+script = ExtResource("1_lg64t")
+
+[node name="Heart" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(488, -256)
+scale = Vector2(9.89999, 9.89999)
+texture = ExtResource("6_0q6hn")
+
+[node name="LivesLabel" type="Label" parent="Heart"]
+texture_filter = 2
+offset_left = -106.0
+offset_top = -5.0
+offset_right = 1172.0
+offset_bottom = 127.0
+scale = Vector2(0.0777332, 0.0777332)
+text = "3"
+label_settings = SubResource("LabelSettings_gtu2c")
+horizontal_alignment = 2
+
+[node name="rock" type="Sprite2D" parent="."]
+position = Vector2(-4, -59)
+scale = Vector2(0.725673, 0.725673)
+texture = ExtResource("2_rlstg")
+
+[node name="ram" type="Sprite2D" parent="."]
+position = Vector2(1, 123)
+scale = Vector2(1.98889, 1.98889)
+texture = ExtResource("4_ffiev")
 
 [node name="Camera" type="Camera2D" parent="."]
 
@@ -27,4 +100,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 metadata/_edit_use_anchors_ = true
 
+[node name="Animations" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ram")
+libraries = {
+"": SubResource("AnimationLibrary_1n2bg")
+}
+
+[connection signal="died" from="bar" to="." method="_on_bar_died"]
+[connection signal="died" from="bar" to="UI" method="_on_bar_died"]
 [connection signal="start" from="UI" to="bar" method="_on_ui_start"]
