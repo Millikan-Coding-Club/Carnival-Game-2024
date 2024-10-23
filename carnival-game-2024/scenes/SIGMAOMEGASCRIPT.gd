@@ -6,8 +6,6 @@ extends Node2D
 
 func _ready():
 	rock.hide()
-	ram.hide()
-	heart.hide()
 
 
 func _on_bar_died():

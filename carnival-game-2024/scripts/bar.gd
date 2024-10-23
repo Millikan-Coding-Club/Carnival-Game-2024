@@ -16,25 +16,30 @@ func _on_ui_start():
 var delay = false
 func _unhandled_key_input(event):
 	if Input.is_key_pressed(KEY_SPACE) && delay == false:
+		$"../Node/hit".play()
 		delay = true
 		game_anim.play("charge")
 		animation.pause()
 		ui.lives -= 1
 		
+		var damage = 0
 		var pos = animation.current_animation_position
 		# if statement monstrosity that checks the position of the box
 		if pos < 0.3046 or pos > 1.2: #red
-			ui.rock_health -= 0
+			damage = 0
 		elif pos < 0.44 or pos > 1.0662: #orange
-			ui.rock_health -= 10
+			damage = 10
 		elif pos < 0.55 or pos > 0.9373: #yellow
-			ui.rock_health -= 25
+			damage = 25
 		elif pos < 0.6796 or pos > 0.8084: #lime
-			ui.rock_health -= 50
+			damage = 50
 		elif pos < 0.8084 and pos > 0.6796: #green
-			ui.rock_health -= 100
+			damage = 100
 		else:
 			print('wtf')
+		
+		ui.rock_health -= damage
+		ui.damage_display(damage)
 		
 		if ui.rock_health > 0 && ui.lives > 0:
 			await get_tree().create_timer(1.2).timeout
@@ -49,4 +54,5 @@ func _unhandled_key_input(event):
 			animation.stop()
 			animation.play("bar")
 		else:
+			$"../Node/death".play()
 			died.emit()

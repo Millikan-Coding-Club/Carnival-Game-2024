@@ -1,13 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://b48pudkrmh6xu"]
+[gd_scene load_steps=18 format=3 uid="uid://b48pudkrmh6xu"]
 
 [ext_resource type="PackedScene" uid="uid://rb8umd20fs5n" path="res://scenes/bar.tscn" id="1_71850"]
 [ext_resource type="Script" path="res://scenes/SIGMAOMEGASCRIPT.gd" id="1_lg64t"]
 [ext_resource type="PackedScene" uid="uid://djs7dyphqh4br" path="res://scenes/ui.tscn" id="2_0c5ve"]
 [ext_resource type="Texture2D" uid="uid://b1bfbkctwwycu" path="res://sprites/grass.png" id="2_kmie0"]
+[ext_resource type="Texture2D" uid="uid://b34jw1c1twf40" path="res://sprites/energy.png" id="3_s3d44"]
 [ext_resource type="FontFile" uid="uid://dqb4qpxlieq3k" path="res://other/MemoryPro.ttf" id="4_lc4ex"]
 [ext_resource type="Texture2D" uid="uid://vun2nvo1vu0y" path="res://sprites/rock.png" id="4_t04sf"]
 [ext_resource type="Texture2D" uid="uid://c4733td4n5aw1" path="res://sprites/ram.png" id="5_mjj61"]
-[ext_resource type="Texture2D" uid="uid://ciu2kgwffal7b" path="res://sprites/heart.png" id="6_0q6hn"]
+[ext_resource type="Texture2D" uid="uid://dfqrhqtyf8nsu" path="res://sprites/ticket.png" id="9_1fnqq"]
+[ext_resource type="AudioStream" uid="uid://gy5s6ntdr1dx" path="res://audio/hit.wav" id="10_l6b06"]
+[ext_resource type="AudioStream" uid="uid://c8d8y3tw3fcu" path="res://audio/levelpass.wav" id="11_8p3pl"]
+[ext_resource type="AudioStream" uid="uid://diqpmdvrg2pml" path="res://audio/select.wav" id="12_xwn3m"]
+[ext_resource type="AudioStream" uid="uid://ckdrsgecjdepb" path="res://audio/win (1).wav" id="13_mebkp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gtu2c"]
 font = ExtResource("4_lc4ex")
@@ -62,17 +67,17 @@ texture = ExtResource("2_kmie0")
 
 [node name="Heart" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(488, -256)
-scale = Vector2(9.89999, 9.89999)
-texture = ExtResource("6_0q6hn")
+position = Vector2(59, -17)
+scale = Vector2(5.34, 5.34)
+texture = ExtResource("3_s3d44")
 
 [node name="LivesLabel" type="Label" parent="Heart"]
 texture_filter = 2
-offset_left = -106.0
-offset_top = -5.0
-offset_right = 1172.0
-offset_bottom = 127.0
-scale = Vector2(0.0777332, 0.0777332)
+offset_left = -95.1311
+offset_top = -52.809
+offset_right = 1182.87
+offset_bottom = 79.191
+scale = Vector2(0.133155, 0.133155)
 text = "3"
 label_settings = SubResource("LabelSettings_gtu2c")
 horizontal_alignment = 2
@@ -116,6 +121,35 @@ root_node = NodePath("../ram")
 libraries = {
 "": SubResource("AnimationLibrary_1n2bg")
 }
+
+[node name="Ticket" type="Sprite2D" parent="."]
+position = Vector2(-475, -245)
+scale = Vector2(5.34, 5.34)
+texture = ExtResource("9_1fnqq")
+
+[node name="TicketsLabel" type="Label" parent="Ticket"]
+texture_filter = 2
+offset_top = -12.3596
+offset_right = 134.0
+offset_bottom = 119.64
+scale = Vector2(0.139582, 0.139582)
+text = "0"
+label_settings = SubResource("LabelSettings_gtu2c")
+horizontal_alignment = 2
+
+[node name="Node" type="Node" parent="."]
+
+[node name="hit" type="AudioStreamPlayer2D" parent="Node"]
+stream = ExtResource("10_l6b06")
+
+[node name="levelpass" type="AudioStreamPlayer2D" parent="Node"]
+stream = ExtResource("11_8p3pl")
+
+[node name="select" type="AudioStreamPlayer2D" parent="Node"]
+stream = ExtResource("12_xwn3m")
+
+[node name="death" type="AudioStreamPlayer2D" parent="Node"]
+stream = ExtResource("13_mebkp")
 
 [connection signal="died" from="bar" to="." method="_on_bar_died"]
 [connection signal="died" from="bar" to="UI" method="_on_bar_died"]

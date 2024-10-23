@@ -10,6 +10,8 @@ signal start
 @onready var rock = $"../rock"
 @onready var ram = $"../ram"
 @onready var heart = $"../Heart"
+@onready var ticket = $"../Ticket"
+@onready var damage_label = $HealthLabel/DamageLabel
 
 var rock_health = 0:
 	set(e):
@@ -25,6 +27,7 @@ func _ready():
 	rock_health_label.hide()
 
 func _on_begin_button_pressed():
+	$"../Node/select".play()
 	new_game()
 
 func new_game():
@@ -41,9 +44,11 @@ func new_game():
 	level += 1
 
 func next_level():
+	$"../Node/levelpass".play()
 	rock.hide()
 	middle_text.show()
 	middle_text.text = 'YOU PASSED LEVEL ' + str(level)
+	$"../Ticket/TicketsLabel".text = str(level)
 	await get_tree().create_timer(2).timeout
 	rock.show()
 	middle_text.hide()
@@ -59,6 +64,11 @@ func next_level():
 			rock_health = 600
 			lives = 6
 
+func damage_display(amount):
+	damage_label.show()
+	damage_label.text = '-' + str(amount)
+	await get_tree().create_timer(.5).timeout
+	damage_label.hide()
 
 func _on_bar_died():
 	middle_text.text = 'YOU LOST!!! THANKS FOR THE TICKETS LOSER!!'
@@ -66,4 +76,5 @@ func _on_bar_died():
 	restart_button.show()
 
 func _on_restart_button_pressed():
+	$"../Node/select".play()
 	get_tree().reload_current_scene()
