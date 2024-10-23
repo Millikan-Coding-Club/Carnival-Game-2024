@@ -43,6 +43,7 @@ func new_game():
 func next_level():
 	rock.hide()
 	middle_text.show()
+	middle_text.text = 'YOU PASSED LEVEL ' + str(level)
 	await get_tree().create_timer(2).timeout
 	rock.show()
 	middle_text.hide()

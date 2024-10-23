@@ -1,14 +1,32 @@
-[gd_scene load_steps=11 format=3 uid="uid://b48pudkrmh6xu"]
+[gd_scene load_steps=13 format=3 uid="uid://b48pudkrmh6xu"]
 
 [ext_resource type="PackedScene" uid="uid://rb8umd20fs5n" path="res://scenes/bar.tscn" id="1_71850"]
 [ext_resource type="Script" path="res://scenes/SIGMAOMEGASCRIPT.gd" id="1_lg64t"]
 [ext_resource type="PackedScene" uid="uid://djs7dyphqh4br" path="res://scenes/ui.tscn" id="2_0c5ve"]
-[ext_resource type="Texture2D" uid="uid://br27e42eddwg1" path="res://sprites/bigrock.png" id="2_rlstg"]
-[ext_resource type="Texture2D" uid="uid://wpvgh5q3o2dx" path="res://sprites/ramplaceholder.png" id="4_ffiev"]
+[ext_resource type="Texture2D" uid="uid://b1bfbkctwwycu" path="res://sprites/grass.png" id="2_kmie0"]
+[ext_resource type="FontFile" uid="uid://dqb4qpxlieq3k" path="res://other/MemoryPro.ttf" id="4_lc4ex"]
+[ext_resource type="Texture2D" uid="uid://vun2nvo1vu0y" path="res://sprites/rock.png" id="4_t04sf"]
+[ext_resource type="Texture2D" uid="uid://c4733td4n5aw1" path="res://sprites/ram.png" id="5_mjj61"]
 [ext_resource type="Texture2D" uid="uid://ciu2kgwffal7b" path="res://sprites/heart.png" id="6_0q6hn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gtu2c"]
-font_size = 96
+font = ExtResource("4_lc4ex")
+font_size = 165
+
+[sub_resource type="Animation" id="Animation_rl7al"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 123)]
+}
 
 [sub_resource type="Animation" id="Animation_frytx"]
 resource_name = "charge"
@@ -27,21 +45,6 @@ tracks/0/keys = {
 "values": [Vector2(1, 123), Vector2(1, 61), Vector2(1, 123)]
 }
 
-[sub_resource type="Animation" id="Animation_rl7al"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 123)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1n2bg"]
 _data = {
 "RESET": SubResource("Animation_rl7al"),
@@ -50,6 +53,12 @@ _data = {
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_lg64t")
+
+[node name="Grass" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0.0163901, 3)
+scale = Vector2(5.34016, 5.34016)
+texture = ExtResource("2_kmie0")
 
 [node name="Heart" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -69,14 +78,16 @@ label_settings = SubResource("LabelSettings_gtu2c")
 horizontal_alignment = 2
 
 [node name="rock" type="Sprite2D" parent="."]
-position = Vector2(-4, -59)
-scale = Vector2(0.725673, 0.725673)
-texture = ExtResource("2_rlstg")
+texture_filter = 1
+position = Vector2(-5, -18)
+scale = Vector2(5.34, 5.34)
+texture = ExtResource("4_t04sf")
 
 [node name="ram" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(1, 123)
-scale = Vector2(1.98889, 1.98889)
-texture = ExtResource("4_ffiev")
+scale = Vector2(5.34, 5.34)
+texture = ExtResource("5_mjj61")
 
 [node name="Camera" type="Camera2D" parent="."]
 

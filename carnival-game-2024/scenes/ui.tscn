@@ -1,11 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://djs7dyphqh4br"]
+[gd_scene load_steps=6 format=3 uid="uid://djs7dyphqh4br"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_omc0q"]
+[ext_resource type="FontFile" uid="uid://dqb4qpxlieq3k" path="res://other/MemoryPro.ttf" id="2_d4o53"]
+[ext_resource type="Theme" uid="uid://km8xrvukckrm" path="res://other/button.tres" id="2_dab18"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_muj8u"]
-font_size = 81
+font = ExtResource("2_d4o53")
+font_size = 150
 
 [sub_resource type="LabelSettings" id="LabelSettings_31nwi"]
+font = ExtResource("2_d4o53")
 font_size = 61
 
 [node name="UI" type="Control"]
@@ -30,6 +34,7 @@ offset_right = 145.0
 offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_dab18")
 text = "begin game"
 
 [node name="RestartButton" type="Button" parent="."]
@@ -46,6 +51,7 @@ offset_right = 145.0
 offset_bottom = 143.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_dab18")
 text = "restart game"
 
 [node name="HealthLabel" type="Label" parent="."]
