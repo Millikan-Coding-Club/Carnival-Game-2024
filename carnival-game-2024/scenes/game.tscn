@@ -66,6 +66,7 @@ scale = Vector2(5.34016, 5.34016)
 texture = ExtResource("2_kmie0")
 
 [node name="Heart" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(59, -17)
 scale = Vector2(5.34, 5.34)
@@ -95,6 +96,7 @@ scale = Vector2(5.34, 5.34)
 texture = ExtResource("5_mjj61")
 
 [node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, 3)
 
 [node name="bar" parent="." instance=ExtResource("1_71850")]
 anchors_preset = 1

@@ -10,7 +10,7 @@ signal died
 func _process(delta):
 	if ui.godmode == true && delay == false:
 		var pos = animation.current_animation_position
-		if pos > 0.74 && pos < 0.79:
+		if pos > 0.69 && pos < 0.81:
 			charge()
 
 func _ready():
@@ -64,8 +64,11 @@ func charge():
 		animation.stop()
 		animation.play("bar")
 	else:
-		$"../Node/death".play()
-		died.emit()
+		die()
+
+func die():
+	$"../Node/death".play()
+	died.emit()
 
 func change_speed(amount):
 	animation.speed_scale = amount

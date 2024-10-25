@@ -29,6 +29,7 @@ func _ready():
 
 func _on_begin_button_pressed():
 	$"../Node/select".play()
+	heart.show()
 	new_game()
  
 var godmode = false
@@ -40,10 +41,16 @@ func _input(event):
 	elif Input.is_action_just_pressed("enter") && console.visible == true:
 		if console.text == 'godmode':
 			godmode = true
+		if console.text == 'manmode':
+			godmode = false
 		console.text = ''
 		console.hide()
 	elif Input.is_action_just_pressed('console') && console.visible == true:
 		console.hide()
+	elif Input.is_key_pressed(KEY_COMMA):
+		godmode = true
+	elif Input.is_key_pressed(KEY_PERIOD):
+		godmode = false
 
 func new_game():
 	heart.show()
@@ -88,20 +95,25 @@ func next_level():
 		6:
 			rock_health = 700
 			lives = 11
-			bar.change_speed(3.7)
+			bar.change_speed(4)
 		7:
 			rock_health = 800
 			lives = 14
-			bar.change_speed(4)
+			bar.change_speed(4.3)
 		8:
 			rock_health = 900
-			lives = 17
-			bar.change_speed(4.3)
+			lives = 15
+			bar.change_speed(4.7)
 		9:
+			rock_health = 950
+			lives = 16
+			bar.change_speed(5.2)
+		10:
 			rock_health = 1000
-			lives = 20
-			bar.change_speed(4.6)
-			
+			lives = 17
+			bar.change_speed(5.8)
+		11:
+			bar.die()
 
 func damage_display(amount):
 	damage_label.show()
@@ -113,6 +125,10 @@ var prize = 'STARTBURST'
 func _on_bar_died():
 	if level > 5:
 		prize = 'SODA'
+	if level > 6:
+		prize = 'PRIME'
+	if level > 10:
+		prize = 'IPHONE'
 	middle_text.text = 'YOU LOST'
 	await get_tree().create_timer(.1).timeout
 	middle_text.text = 'YOU PASSED ' + str(level - 1) + " LEVELS. 
