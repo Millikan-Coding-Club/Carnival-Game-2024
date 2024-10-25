@@ -123,6 +123,7 @@ libraries = {
 }
 
 [node name="Ticket" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-475, -245)
 scale = Vector2(5.34, 5.34)
 texture = ExtResource("9_1fnqq")
@@ -154,3 +155,4 @@ stream = ExtResource("13_mebkp")
 [connection signal="died" from="bar" to="." method="_on_bar_died"]
 [connection signal="died" from="bar" to="UI" method="_on_bar_died"]
 [connection signal="start" from="UI" to="bar" method="_on_ui_start"]
+[connection signal="animation_started" from="Animations" to="bar" method="_on_animations_animation_started"]

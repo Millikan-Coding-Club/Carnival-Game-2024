@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://djs7dyphqh4br"]
+[gd_scene load_steps=9 format=3 uid="uid://djs7dyphqh4br"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_omc0q"]
 [ext_resource type="FontFile" uid="uid://dqb4qpxlieq3k" path="res://other/MemoryPro.ttf" id="2_d4o53"]
@@ -20,6 +20,9 @@ font_size = 111
 [sub_resource type="LabelSettings" id="LabelSettings_31nwi"]
 font = ExtResource("2_d4o53")
 font_size = 80
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53qpl"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -138,6 +141,22 @@ label_settings = SubResource("LabelSettings_31nwi")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="TextEdit" type="TextEdit" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -577.0
+offset_top = -323.0
+offset_right = 972.0
+offset_bottom = -272.0
+theme_override_colors/font_placeholder_color = Color(0.568973, 0.568973, 0.568973, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_d4o53")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_53qpl")
+theme_override_styles/focus = SubResource("StyleBoxFlat_53qpl")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_53qpl")
+placeholder_text = "Type Command"
 
 [connection signal="pressed" from="BeginButton" to="." method="_on_begin_button_pressed"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]

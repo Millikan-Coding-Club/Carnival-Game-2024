@@ -12,6 +12,7 @@ signal start
 @onready var heart = $"../Heart"
 @onready var ticket = $"../Ticket"
 @onready var damage_label = $HealthLabel/DamageLabel
+@onready var console = $TextEdit
 
 var rock_health = 0:
 	set(e):
@@ -29,6 +30,20 @@ func _ready():
 func _on_begin_button_pressed():
 	$"../Node/select".play()
 	new_game()
+ 
+var godmode = false
+func _input(event):
+	if Input.is_action_just_pressed('console') && console.visible == false:
+		await get_tree().create_timer(.01).timeout
+		console.show()
+		console.grab_focus()
+	elif Input.is_action_just_pressed("enter") && console.visible == true:
+		if console.text == 'godmode':
+			godmode = true
+		console.text = ''
+		console.hide()
+	elif Input.is_action_just_pressed('console') && console.visible == true:
+		console.hide()
 
 func new_game():
 	heart.show()
@@ -41,7 +56,7 @@ func new_game():
 	bar.delay = false
 	rock_health = 200
 	lives = 3
-	level += 1
+	level = 1
 
 func next_level():
 	$"../Node/levelpass".play()
@@ -57,12 +72,36 @@ func next_level():
 		2:
 			rock_health = 300
 			lives = 4
+			bar.change_speed(1.2)
 		3:
-			rock_health = 450
+			rock_health = 400
 			lives = 5
+			bar.change_speed(1.6)
 		4:
+			rock_health = 500
+			lives = 7
+			bar.change_speed(2.5)
+		5:
 			rock_health = 600
-			lives = 6
+			lives = 9
+			bar.change_speed(3.5)
+		6:
+			rock_health = 700
+			lives = 11
+			bar.change_speed(3.7)
+		7:
+			rock_health = 800
+			lives = 14
+			bar.change_speed(4)
+		8:
+			rock_health = 900
+			lives = 17
+			bar.change_speed(4.3)
+		9:
+			rock_health = 1000
+			lives = 20
+			bar.change_speed(4.6)
+			
 
 func damage_display(amount):
 	damage_label.show()
@@ -70,8 +109,14 @@ func damage_display(amount):
 	await get_tree().create_timer(.5).timeout
 	damage_label.hide()
 
+var prize = 'STARTBURST'
 func _on_bar_died():
-	middle_text.text = 'YOU LOST!!! THANKS FOR THE TICKETS LOSER!!'
+	if level > 5:
+		prize = 'SODA'
+	middle_text.text = 'YOU LOST'
+	await get_tree().create_timer(.1).timeout
+	middle_text.text = 'YOU PASSED ' + str(level - 1) + " LEVELS. 
+	YOU GET A " + prize
 	middle_text.show()
 	restart_button.show()
 
